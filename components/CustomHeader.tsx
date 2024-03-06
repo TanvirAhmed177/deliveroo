@@ -3,9 +3,9 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  Image,
-  TextInput,
   TouchableOpacity,
+  TextInput,
+  Image,
 } from "react-native";
 import React, { useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,17 +19,17 @@ const SearchBar = () => (
     <View style={styles.searchSection}>
       <View style={styles.searchField}>
         <Ionicons
+          style={styles.searchIcon}
           name="ios-search"
           size={20}
           color={Colors.medium}
-          style={styles.searchIcon}
         />
         <TextInput
           style={styles.input}
-          placeholder="Restaurants, gaucheries ..."
+          placeholder="Restaurants, groceries, dishes"
         />
       </View>
-      <Link href={"/"} asChild>
+      <Link href={"/(modal)/filter"} asChild>
         <TouchableOpacity style={styles.optionButton}>
           <Ionicons name="options-outline" size={20} color={Colors.primary} />
         </TouchableOpacity>
@@ -37,14 +37,18 @@ const SearchBar = () => (
     </View>
   </View>
 );
+
 const CustomHeader = () => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+
   const openModal = () => {
     bottomSheetRef.current?.present();
   };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <BottomSheet ref={bottomSheetRef} />
+
       <View style={styles.container}>
         <TouchableOpacity onPress={openModal}>
           <Image
@@ -52,13 +56,15 @@ const CustomHeader = () => {
             source={require("@/assets/images/bike.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.titleContainer}>
-          <Text style={styles.title}>Delivery . Now</Text>
+
+        <TouchableOpacity style={styles.titleContainer} onPress={openModal}>
+          <Text style={styles.title}>Delivery · Now</Text>
           <View style={styles.locationName}>
             <Text style={styles.subtitle}>London</Text>
             <Ionicons name="chevron-down" size={20} color={Colors.primary} />
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.profileButton}>
           <Ionicons name="person-outline" size={20} color={Colors.primary} />
         </TouchableOpacity>
@@ -71,11 +77,11 @@ const CustomHeader = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
   },
   container: {
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     flexDirection: "row",
     gap: 20,
     alignItems: "center",
@@ -89,9 +95,18 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
   },
-  title: { fontSize: 14, color: Colors.medium },
-  subtitle: { fontSize: 18, fontWeight: "bold" },
-  locationName: { flexDirection: "row", alignItems: "center", gap: 2 },
+  title: {
+    fontSize: 14,
+    color: Colors.medium,
+  },
+  locationName: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   profileButton: {
     backgroundColor: Colors.lightGrey,
     padding: 10,
@@ -99,7 +114,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
   },
   searchSection: {
     flexDirection: "row",
@@ -115,18 +130,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  optionButton: {
-    padding: 10,
-    borderRadius: 50,
-  },
   input: {
     padding: 10,
-    paddingHorizontal: 10,
     color: Colors.mediumDark,
-    fontSize: 14,
   },
   searchIcon: {
     paddingLeft: 10,
+  },
+  optionButton: {
+    padding: 10,
+    borderRadius: 50,
   },
 });
 
