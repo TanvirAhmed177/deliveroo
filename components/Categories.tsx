@@ -12,7 +12,7 @@ const Categories = () => {
       }}
     >
       {categories.map((category, index) => (
-        <View style={styles.categoryCard}>
+        <View style={styles.categoryCard} key={index}>
           <Image source={category.img} />
           <Text style={styles.categoryText}>{category.text}</Text>
         </View>
